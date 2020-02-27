@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Patient Profile";
+}
+@model PROJECT_POSE.Models.Account.PatientProfileViewModel
+@using Microsoft.AspNetCore.Identity
+@using POSE.Domain
+
+@inject UserManager<PoseUser> UserManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div style="margin-top:100px">
+                <form method="post">
+                        <div class="col-md-4">
+                            <div class="profile-img">
+                                <img src="~/img/patient_Avatar.png" ; style="height:200px; width:200px" />
+                            </div>
+                        </div>
+                        <!--header-->
+                        <div class="col-md-8">
+                            <div>
+                                <h3 style="color:white">
+                                    Hello, @User.Identity.Name!
+                                </h3>
+                                <p class="text-white">@Model.Address<span class="white"></span></p>
+                            </div>
+                            <div>
+                                <div class="col-md-10 text-white">
+                                    <div class="col-md-6 btn-appoint text-center">
+                                        <a asp-controller="Patient" asp-action="PatientDetails" asp-route-Id="@UserManager.GetUserId(User)" style="margin-left:20px; margin-right:20px; color:white">MEDICAL HISTORY</a>
+                                    </div>
+                                    <div class="col-md-6 btn-appoint text-center">
+                                        <a asp-controller="Patient" asp-action="Receipts" style="margin-left:20px; margin-right:20px; color:white">RECEIPTS</a>
+                                    </div>
+                                    @if (Model.HasADoctor)
+                                    {
+                                        <div class="col-md-6 btn-appoint text-center">
+                                            <a asp-controller="Patient" asp-action="GiveDoctorScore" style="margin-left:20px; margin-right:20px; color:white">GIVE SCORE TO YOUR DOCTOR</a>
+                                        </div>
+                                        <div class="col-md-6 btn-appoint text-center">
+                                            <a asp-controller="Patient" asp-action="ContactDoctor" style="margin-left:20px; margin-right:20px; color:white">CONTACT YOUR DOCTOR</a>
+                                        </div>
+                                    }
+                                    @if (Model.HasAStore)
+                                    {
+                                        <div class="col-md-6 btn-appoint text-center">
+                                            <a asp-controller="Patient" asp-action="GiveDrugStoreScore" style="margin-left:20px; margin-right:20px; color:white">GIVE SCORE TO YOUR DRUG STORE</a>
+                                        </div>
+                                        <div class="col-md-6 btn-appoint text-center">
+                                            <a asp-controller="Patient" asp-action="ContactStore" style="margin-left:20px; margin-right:20px; color:white">CONTACT YOUR DRUG STORE</a>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div>
+
+                                </div>
+                            </div>
+                        <!--/header-->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--rightmenu-->
+                            <div class="col-md-4">
+                                <div class="alert-heading">
+                                    <h3 style="color:coral; margin-top:20px" class="text-center">PROFILE:</h3>
+                                    <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                                    <a class="white" href="/Identity/Account/Manage/ChangePassword">Change Password</a><br />
+                                    <a class="white" href="/Identity/Account/Manage/DeletePersonalData">Delete Profile</a><br />
+                                    <a class="white" href="/Identity/Account/Manage/UpdatePatientProfile">Update Profile</a><br />
+                                    <a asp-controller="Home" asp-action="Chat" style="color:lightcoral">Chat</a><br />
+                                </div>
+                            </div>
+                            <!--/rightmenu-->
+                            <div class="col-md-4">
+                                <div class="row white">
+                                    <h3 style="color:coral; margin-top:20px" class="text-center">PERSONAL INFO:</h3>
+                                    <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                                    <div class="col-md-4">
+                                        <label>Full name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.FullName</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Age</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>@Model.Age years</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.Email</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>@Model.PhoneNumber</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Alergic to:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.AlergicToString</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row white">
+                                    <h3 style="color:coral; margin-top:20px" class="text-center">MEDICAL INFO:</h3>
+                                    <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                                    <div class="col-md-4">
+                                        <label>Doctor</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.DoctorName</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Drug Store</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.DrugStoreName -  @Model.DrugStoreAddress</p>
+                                    </div>
+                                </div>
+                                <div class="row white">
+                                    <div class="col-md-4">
+                                        <label>Spent sum for drugs</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@Model.FeeForMedicaments$</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

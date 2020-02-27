@@ -1,0 +1,115 @@
+﻿@page
+
+@model PatientProfileModel
+@using POSE.Services.Dtos
+@{
+    ViewData["Title"] = "Update Patient Profile";
+    List<DrugStoreDto> stores = ViewData["drugStores"] as List<DrugStoreDto>;
+    ViewData["ActivePage"] = ManageNavPages.UpdateDoctorProfile;
+}
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-10">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h4 class="white">@ViewData["Title"]</h4>
+                        <div class="row">
+                            <form id="profile-form" method="post">
+                                <div asp-validation-summary="All" class="text-white"></div>
+                                <div class="col-md-5" style="margin-top:30px">
+                                    <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <div class="form-group">
+                                        <label asp-for="Input.FullName">Full Name</label>
+                                        <input asp-for="Input.FullName" class="form-control" />
+                                        <span asp-validation-for="Input.FullName" class="text-white"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Input.Age"></label>
+                                        <input asp-for="Input.Age" class="form-control" />
+                                        <span asp-validation-for="Input.Age" class="text-white"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Input.Address"></label>
+                                        <input asp-for="Input.Address" class="form-control" />
+                                        <span asp-validation-for="Input.Address" class="text-white"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Input.Email"></label>
+                                        <input asp-for="Input.Email" class="form-control" />
+                                        <span asp-validation-for="Input.Email" class="text-white"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" style="margin-top:30px;">
+                                    <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <div class="form-group">
+                                        <label asp-for="Input.PhoneNumber"></label>
+                                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="Input.PhoneNumber" class="text-white"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="DoctorName">Doctor</label>
+                                        <select class="form-control" id="DoctorName" name="DoctorName">
+                                            <option selected disabled>-- Choose Doctor --</option>
+                                            @foreach (string option in ViewData["doctors"] as List<string>)
+                                            {
+                                                if (option == ViewData["doctor"].ToString())
+                                                {
+                                                    <option selected="selected">@option</option>
+                                                }
+                                                else
+                                                {
+                                                    <option>@option</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        @if (ViewData["drugStores"] != null)
+                                        {
+                                            <label asp-for="DrugStore">Drug Store:</label>
+                                            <select class="form-control" id="drugStore" name="drugStore">
+                                                <option selected disabled>-- Choose Drug Store --</option>
+                                                @foreach (var option in ViewData["drugStores"] as List<DrugStoreDto>)
+                                                {
+                                                    if (option.FullName == ViewData["drugStore"].ToString())
+                                                    {
+                                                        <option selected="selected" label="@option.FullName - @option.Address" value="@option.UserGuid"></option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option label="@option.FullName - @option.Address" value="@option.UserGuid"></option>
+                                                    }
+                                                }
+                                            </select>
+                                        }
+                                    </div>
+                                    <div class="form-group">
+                                        @if (ViewData["alergens"] != null)
+                                        {
+                                            <label asp-for="DrugIngredients">Alergic to:</label>
+                                            <select class="form-control" id="DrugIngredients" name="DrugIngredients" multiple>
+                                                <option selected disabled>-- Choose alergens --</option>
+                                                @foreach (string option in ViewData["alergens"] as List<string>)
+                                                {
+                                                    <option>@option</option>
+                                                }
+                                            </select>
+                                        }
+                                    </div>
+                                    <button type="reset" class="btn btn-default">Clear</button>
+                                    <button type="submit" class="btn btn-default">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

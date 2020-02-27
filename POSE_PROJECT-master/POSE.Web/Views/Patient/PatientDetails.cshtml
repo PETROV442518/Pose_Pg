@@ -1,0 +1,236 @@
+﻿@model PROJECT_POSE.Models.Patient.PatientDetailsViewModel
+@using POSE.Services
+@using POSE.Services.Dtos
+@inject IPrescriptionServices services
+@{
+    ViewData["Title"] = "Patient medical history";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<style>
+    .collapsible {
+        background-color: transparent;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .activeRow, .collapsible:hover {
+            background-color: #555;
+        }
+
+    .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: transparent;
+        outline: thin;
+    }
+</style>
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white" class="text-center">@ViewData["Title"] </h2>
+                        <div class="col-md-4">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <h3 style="color:coral">Patient Info:</h3>
+                            <div>
+                                <label>Full name: @Model.Patient.FullName</label>
+                            </div>
+                            <div>
+                                <label>Age: @Model.Patient.Age years</label>
+                            </div>
+                            <div>
+                                <label>Address: @Model.Patient.Address</label>
+                            </div>
+                            <div>
+                                @if (Model.Patient.AllergicTo != "" && Model.Patient.AllergicTo != null)
+                                {<label>Allergic to: @Model.Patient.AllergicTo</label>}
+                            else
+                            {<label>Allergic to: Nothing</label>}
+                            </div>
+                            <div>
+                                <label>Sum for drugs: $@Model.Patient.SumForDrugs</label>
+                            </div>
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <h3 style="color:coral">Spent diseases:</h3>
+                            @if (@Model.Patient.SpentDiseases.Count > 0)
+                            {
+
+                                @foreach (var option in Model.Patient.SpentDiseases)
+                                {
+                                    <div>
+                                        <label>@option.Name - @option.Description</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div>
+                                    <label>No spent diseases!</label>
+                                </div>
+                            }
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <h3 style="color:coral">Taken drugs:</h3>
+                            @if (@Model.Patient.TakenDrugs.Count > 0)
+                            {
+                                @foreach (var option in Model.Patient.TakenDrugs)
+                                {
+                                    <div>
+                                        <label>@option.Name - @option.Producer</label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div>
+                                    <label>No drugs have been taken by the patient!</label>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <h3 style="color:coral" class="text-center">Examinations:</h3>
+                            @if (@Model.Patient.Examinations.Count > 0)
+                            {
+                                foreach (var exam in Model.Patient.Examinations)
+                                {
+                                    <hr style="height:1px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <button class="collapsible btn-group"> Doctor: @exam.Doctor.FullName; Date: @exam.Date.ToShortDateString() </button>
+                                    <div class="content">
+                                        <div class="col-md-10">
+                                            <div class="col-md-6">
+                                                <h3 style="color:coral">Diagnosis</h3>
+                                                <div>
+                                                    <label>Description: @exam.Diagnosis.Description</label>
+                                                </div>
+                                                @if (exam.Diagnosis.Diseases.Count > 0)
+                                                {
+                                                    <div>
+                                                        <label>Diseases: @String.Join(", ", exam.Diagnosis.Diseases.Select(a => a.Name))</label>
+                                                    </div>
+                                                }
+                                                @if (exam.Tests.Count > 0)
+                                                {
+                                                    foreach (var test in exam.Tests.ToList())
+                                                    {
+                                                        <div>
+                                                            <label>@test.Test.Name - @test.Result.ToString()</label>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h3 style="color:coral">Prescription Info</h3>
+                                                @if (exam.Prescription != null)
+                                                {
+                                                    @if (@exam.Prescription.DrugStore != null)
+                                                    {
+                                                        <div>
+                                                            <label>Drug store - @exam.Prescription.DrugStore.FullName</label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div>
+                                                            <label>Drug store - Deleted</label>
+                                                        </div>
+                                                    }
+
+                                                    <div>
+                                                        <label>Treatmenent duration - @exam.Prescription.TreatmentDuration days</label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div>
+                                                        <label>No prescription needed!</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @if (exam.Prescription.DrugIds != null)
+                                            {
+                                                var drugs = services.ReturnDrugsById(exam.Prescription.DrugIds).ToList();
+
+                                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                                <h3 style="color:coral" class="text-center">Drugs:</h3>
+
+                                                @foreach (var drug in drugs)
+                                                {
+                                                    <div style="overflow-x:auto">
+                                                        <table class="table col-md-6">
+                                                            <tr>
+                                                                <th>Drug name</th>
+                                                                <th>Drug producer</th>
+                                                                <th>Drug type</th>
+                                                                <th>Drug form</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>@drug.Name</td>
+                                                                <td>@drug.Producer</td>
+                                                                <td>@drug.Type.ToString()</td>
+                                                                <td>@drug.Form.ToString()</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <label>No drugs prescribed!</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center">
+                                    <label class="text-center">No examinations performed to this patient!</label>
+                                </div>
+                            }
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("activeRow");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+
+

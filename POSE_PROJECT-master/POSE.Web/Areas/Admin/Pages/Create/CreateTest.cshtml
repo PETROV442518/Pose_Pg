@@ -1,0 +1,45 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "Create a new test";
+}
+
+@model CreateTestModel
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-10">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white">Create form</h2>
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <h4 style="color:white">Create a new drug.</h4>
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    <label asp-for="Input.Name"></label>
+                                    <input asp-for="Input.Name" class="form-control" />
+                                    <span asp-validation-for="Input.Name" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Description"></label>
+                                    <input asp-for="Input.Description" size="30" class="form-control" />
+                                    <span asp-validation-for="Input.Description" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default text-center">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

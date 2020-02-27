@@ -1,0 +1,76 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "Create a new disease";
+}
+
+@model CreateDiseaseModel
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white">Create form</h2>
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    <label asp-for="Input.Name">Title</label>
+                                    <input asp-for="Input.Name" class="form-control" />
+                                    <span asp-validation-for="Input.Name" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Description">Description:</label>
+                                    <input asp-for="Input.Description" size="50" class="form-control" />
+                                    <span asp-validation-for="Input.Description" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Treatment">Treatment</label>
+                                    <input asp-for="Input.Treatment" size="50" class="form-control" />
+                                    <span asp-validation-for="Input.Treatment" class="text-white"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    <label asp-for="Input.Contagious">Contagious:</label>
+                                    <select class="form-control" id="Contagious" name="Contagious">
+                                        <option selected disabled>-- Choose --</option>
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Curable">Curable:</label>
+                                    <select class="form-control" id="Curable" name="Curable">
+                                        <option selected disabled>-- Choose --</option>
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Lethal">Lethal:</label>
+                                    <select class="form-control" id="Lethal" name="Lethal">
+                                        <option selected disabled>-- Choose --</option>
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default text-center">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

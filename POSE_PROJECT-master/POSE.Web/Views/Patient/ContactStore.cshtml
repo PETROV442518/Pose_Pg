@@ -1,0 +1,41 @@
+﻿@model PROJECT_POSE.Models.Patient.ContactBindingModel
+@{
+    ViewData["Title"] = "Contact Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="banner-text">
+                <section style="color:white; margin-top:150px">
+                    <div class="col-md-4">
+                        <h3 class="cnt-tt text-center" style="color:white">Contact Your Drug Store</h3>
+                        <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                        <div class="space"></div>
+                        <form action="" method="post" role="form" class="contactForm">
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Subject"></label>
+                                <input asp-for="@Model.Subject" class="form-control br-radius-zero" />
+                                <span asp-validation-for="@Model.Subject" placeholder="Subject" style="color:coral"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Message"></label>
+                                <textarea asp-for="@Model.Message" rows="5" placeholder="Message" class="form-control br-radius-zero"></textarea>
+                                <span asp-validation-for="@Model.Message" style="color:coral"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="@Model.AntiSpam"></label>
+                                <input asp-for="@Model.AntiSpam" class="form-control br-radius-zero" />
+                            </div>
+                            <div class="form-action">
+                                <button type="submit" asp-controller="Patient" asp-action="ContactDoctor" class="btn btn-form">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,48 @@
+﻿@page 
+@model POSE.Web.Areas.Identity.Pages.Account.RegisterMainModel
+@{
+    ViewData["Title"] = "Register";
+}
+<!--banner-->
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="section-padding">
+            <div class="col-md-12 col-sm-12">
+                <div>
+                    <h2 class="ser-title" style="text-align:center; color:white; margin-top:150px;">@ViewData["Title"]</h2>
+                </div>
+                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0">
+                <div class="schedule-tab bor-left">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="medi-info">
+                            <h3>as Doctor</h3>
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0">
+                            <p>If You want to have a higher level connection with Your patients while examining, making prescriptions and checking patients history with just one click</p>
+                            <a href="./RegisterDoctor" class="medi-info-btn">Register</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="medi-info">
+                            <h3>as Patient</h3>
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0">
+                            <p>If You want to have a higher level connection with Your doctor and prefered drug store while being examined, getting prescription or checking medical history with just one click</p>
+                            <a asp-page="./RegisterPatient" class="medi-info-btn">Register</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="medi-info">
+                            <h3>as Drug Store</h3>
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0">
+                            <p>If You want to have a higher level connection with Your clients while performing a prescription or getting a receipt with just one click</p>
+                            <a href="./RegisterDrugStore" class="medi-info-btn">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ banner-->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

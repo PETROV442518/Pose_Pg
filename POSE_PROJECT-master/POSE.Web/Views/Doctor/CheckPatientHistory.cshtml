@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Choose patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var patients = ViewBag.Patients as List<PatientDto>;
+}
+
+@using POSE.Services.Dtos
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px;">
+                        <h2 style="color:white">@ViewData["Title"] </h2>
+                        <div class="space"></div>
+                        <div class="col-md-10">
+                            @if (patients.Count != 0)
+                            {
+                                <table style="overflow-x:auto;" class="table-condensed table-info">
+                                    <tr>
+                                        <th>Patient name</th>
+                                        <th>Patient Age</th>
+                                        <th>Patient Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    @foreach (var option in patients)
+                                    {
+                                        <tr>
+                                            <td>@option.FullName</td>
+                                            <td>@option.Age years</td>
+                                            <td>@option.Address</td>
+                                            <td>
+                                                <a asp-controller="Patient" asp-action="PatientDetails" asp-route-Id="@option.UserGuid" class="btn btn-appoint">CHECK</a>
+                                            <td>
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <label>No patients to show</label>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

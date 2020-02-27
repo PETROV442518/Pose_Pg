@@ -1,0 +1,58 @@
+﻿@model PROJECT_POSE.Models.Receipt.ReceiptDetailsViewModel
+@{
+    ViewData["Title"] = "Receipt Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-4" style="margin-top:150px; margin-bottom:10px; background-color:white">
+                <div id="Heading">
+                    <div class="page-header">
+                        <div>
+                            <h3 class="text-center">@Model.DrugStoreDto.FullName</h3>
+                        </div>
+                        <div>
+                            <h4 class="text-center" style="margin-top:10px">Address: @Model.DrugStoreDto.Address</h4>
+                        </div>
+                        <div>
+                            <h4 class="text-center" style="margin-top:10px">CIN: @Model.DrugStoreDto.CIN</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="table">
+                    <div id="table">
+                        <table class="col-md-12" style="background-color:white">
+                            <tr class="tabletitle">
+                                <td class="item"><h4>ITEM</h4></td>
+                                <td class="Rate"><h4>PRICE</h4></td>
+                            </tr>
+                            @foreach (var item in Model.Drugs)
+                            {
+                                <tr>
+                                    <td class="col-md-6" style="color:black">@item.Name (@item.Producer)</td>
+                                    <td class="col-md-6" style="color:black">$@item.Price</td>
+                                </tr>
+                            }
+                            <tr class="tabletitle">
+                                <td class="Rate" style="margin-top:10px"><h4>Total:</h4></td>
+                                <td class="payment" style="margin-top:10px"><h4>$@Model.Fee</h4></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="goodbye">
+                    <p class="alert-dark text-center" style="margin-top:10px">
+                        <strong class="text-center" style="color:black">Thank you for your business!</strong>
+                </div>
+                <div>
+                    <p class="alert-dark text-center" style="margin-top:10px">
+                        <strong class="text-center" style="color:black">Created with POSE!</strong>
+                </div>
+                <div>
+                    <strong class="text-center" style="color:gray">www.pose.com</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

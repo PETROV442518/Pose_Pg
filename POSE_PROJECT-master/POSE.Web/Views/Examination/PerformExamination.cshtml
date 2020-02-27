@@ -1,0 +1,165 @@
+﻿@model PROJECT_POSE.Models.Examination.PerformExaminationBindingModel
+@using POSE.Services.Dtos
+@{
+    ViewData["Title"] = "Examination Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var testResults = ViewData["TestResults"] as List<TestResultDto>;
+    var patient = ViewData["Patient"] as PatientDto;
+    var diseases = ViewData["Diseases"] as List<DiseaseDto>;
+    var drugs = ViewData["Drugs"] as List<string>;
+    var store = ViewData["DrugStore"] as DrugStoreDto;
+    var stores = ViewData["DrugStores"] as List<DrugStoreDto>;
+    var returnUrl = ViewBag.ReturnUrl;
+
+}
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white" class="text-center">@ViewData["Title"] </h2>
+                        <form asp-controller="Examination" asp-action="FinishExamination" method="post">
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <h3 style="color:coral">Patient Info</h3>
+                                    <div>
+                                        <label>Full name: @patient.FullName</label>
+                                    </div>
+                                    <div>
+                                        <label>Age: @patient.Age years</label>
+                                    </div>
+                                    <div>
+                                        <label>Address: @patient.Address</label>
+                                    </div>
+                                    <div>
+                                        <label>Allergic to: @patient.AllergicTo</label>
+                                    </div>
+                                    <div hidden>
+                                        <input asp-for="@Model.UserGuid" value="@patient.UserGuid" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h3 style="color:coral">Test Results</h3>
+                                    <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    @if (ViewData["TestResults"] != null)
+                                    {
+                                        @foreach (var option in testResults)
+                                        {
+                                            <div>
+                                                <label>@option.TestName --- @option.Result.ToString()</label>
+                                                <input hidden asp-for="@Model.TestResults" value="@option.TestName --- @option.Result.ToString()" />
+                                                <span asp-validation-for="@Model.Description" class="text-white"></span>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <label> No tests performed </label>
+                                    }
+                                </div>
+                                <div hidden>
+                                    <input hidden asp-for="@Model.ReturnUrl" name="ReturnUrl" value=@returnUrl />
+                                </div>
+                                <div class="form-group">
+                                    <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                                    <h3 style="color:coral">Drug Store</h3>
+                                    @if (ViewData["DrugStore"] != null)
+                                    {
+                                        <div>
+                                            <label>@store.FullName --- @store.Address</label>
+                                            <input hidden asp-for="@Model.StoreId" value="@store.UserGuid" />
+                                        </div>
+                                    }
+                                    else if (ViewData["DrugStores"] != null)
+                                    {
+                                        <div class="form-group">
+                                            <label hidden asp-for="@Model.StoreId"></label>
+                                            <select class="form-control" id="StoreId" name="StoreId">
+                                                <option selected disabled>-- Select drug store: --</option>
+                                                @foreach (var option in ViewData["DrugStores"] as List
+                                            <DrugStoreDto>
+                                                )
+                                                {
+                                                    <option label="@option.FullName --- @option.Address">@option.UserGuid</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <label>"No registered Drug stores"</label>
+                                        <input hidden asp-for="@Model.StoreId" value="0000" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <h3 style="color:coral">Diagnosis</h3>
+                                    <div class="form-group" style="height:100px">
+                                        <label asp-for="@Model.Description">Description:</label>
+                                        <textarea rows="3" asp-for="@Model.Description" placeholder="Description" class="form-control"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="text-white"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @if (ViewData["Diseases"] != null)
+                                    {
+                                        <label asp-for="@Model.Diseases">Diseases:</label>
+                                        <select class="form-control" id="Diseases" size="10" name="Diseases" multiple>
+                                            <option selected>None</option>
+                                            @foreach (var option in diseases)
+                                            {
+                                                <option label="@option.Name - @option.Treatment">@option.Name</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="@Model.Diseases" class="text-white"></span>
+                                    }
+                                    else
+                                    {
+                                        <label>No diseases registered!</label>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <h3 style="color:coral">Prescription:</h3>
+                                <div class="form-group">
+                                    @if (drugs.Count() > 0)
+                                    {
+                                        <label asp-for="@Model.Drugs">Drugs:</label>
+                                        <select class="form-control" id="Drugs" size="6" name="Drugs" multiple>
+                                            <option selected disabled>-- Select drugs: --</option>
+                                            @foreach (var option in drugs)
+                                            {
+                                                <option label="@option">@option</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="@Model.Drugs" class="text-white"></span>
+                                    }
+                                    else
+                                    {
+                                        <label> No drugs registered! Please contact Your administrator! </label>
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.TreatmentDuration">Treatment duration in days</label>
+                                    <input asp-for="@Model.TreatmentDuration" placeholder="0" class="form-control" />
+                                    <span asp-validation-for="@Model.TreatmentDuration" class="text-white"></span>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" asp-controller="Examination" asp-action="FinishExamination" class="btn btn-appoint">
+                                        FINISH EXAMINATION
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal" asp-append-version="true">
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content(" ~/css/bootstrap.min.css")" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="@Url.Content(" ~/css/style.css")" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="@Url.Content(" ~/js/custom.js")" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="@Url.Content(" ~/js/jquery.min.js")" asp-append-version="true">
+    <link rel="shortcut icon" href="~/favicon/favicon.ico" asp-append-version="true" />
+
+
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+
+    <title>@ViewData["Title"] - POSE</title>
+</head>
+<body id="HomePage" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <!--navbar-->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-collapse ">
+        <div class="container">
+
+            <div class="col-md-12">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                        <img src=@Url.Content("/img/logo.png") class="img-responsive" style="width: 140px; margin-top: -50px;">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="/">Home</a></li>
+                        <li class=""><a href="#footer">About</a></li>
+                        <li class=""><a href="#contact">Contact</a></li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--/ navbar-->
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--contact-->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div style="margin:auto">
+                <partial name="_Cookies_Partial" />
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <h3>Contact Info</h3>
+                    <div class="space"></div>
+                    <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>1000 Awesome Street<br> Sofia2</p>
+                    <div class="space"></div>
+                    <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i>info@pose.com</p>
+                    <div class="space"></div>
+                    <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>0888 123 1234</p>
+                </div>
+                <div class="col-md-8 col-sm-8 marb20">
+                    <div class="contact-info">
+                        <h3 class="cnt-ttl">Contact us!</h3>
+                        <div class="space"></div>
+                        <div id="sendmessage">Your message has been sent. Thank you!</div>
+                        <div id="errormessage"></div>
+                        <form action="" method="post" role="form" class="contactForm">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control br-radius-zero" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control br-radius-zero" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control br-radius-zero" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control br-radius-zero" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                <div class="validation"></div>
+                            </div>
+
+                            <div class="form-action">
+                                <button type="submit" asp-controller="Home" asp-action="SendMessageAsync" class="btn btn-form">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ contact-->
+    <!--footer-->
+    <footer id="footer">
+        <div class="top-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 marb20">
+
+                        <div id="cookieConsent" class="alert-danger alert text-center" style="color:coral; background-color:transparent" role="alert">
+                            POSE uses harmless cookies for a better work performance!
+                            <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:black"> Learn More</a>
+                        </div>
+                        <div class="ftr-tle">
+                            <h4 class="white no-padding">About Us</h4>
+                        </div>
+                        <div class="info-sec">
+                            <p>
+                                P.O.S.E is a simple Web Store project, which
+                                connects patients, doctors and drugstores.
+
+                                Patients can make requests for examinations.
+                                They can look for their examination history, history of spend diseases,
+                                prescription history, can see what allergies they have. Can see the whole sum for drugs. Patient will get a notification for an upcoming examination or if he/she hasn't had one for 6 months. Patients can give doctors score for their services.
+
+                                Doctors can accept examination requests, can make an examination, can appoint additional tests, can do a diagnosis, can make a prescription with various drugs(automatically checking if drugs contain ingredients that patient is allergic to and alert the doctor), can send the prescription to the nearest drugstore. If a drug is missing in the store, the doctor can choose another store for the prescription.
+
+                                Drugstores can perform the prescription, calculate the sum and can issue a receipt. They can create new drugs and choose which drugs to sell.
+
+                                The project also supports Administration.
+                                The 3 main groups will have a role equal to a User.
+                                Administrators can add, edit or delete drugs. They can also add, edit and delete diseases, types of diseases, medicines, doctor specialties, tests, and other entities.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="credits">
+                            Designed by Tsvetan Petrov
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ footer-->
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

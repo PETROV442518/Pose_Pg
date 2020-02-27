@@ -1,0 +1,105 @@
+﻿@page 
+@{ 
+    ViewData["Title"] = "Create a new drug";
+}
+
+@model CreateDrugModel
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white">Create form</h2>
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    <label asp-for="Input.Name">Title</label>
+                                    <input asp-for="Input.Name" class="form-control" />
+                                    <span asp-validation-for="Input.Name" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.GenericGroup">Generic group</label>
+                                    <input asp-for="Input.GenericGroup" class="form-control" />
+                                    <span asp-validation-for="Input.GenericGroup" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Price">Price</label>
+                                    <input asp-for="Input.Price" class="form-control" />
+                                    <span asp-validation-for="Input.Price" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Producer">Producer</label>
+                                    <input size="10" asp-for="Input.Producer" class="form-control" />
+                                    <span asp-validation-for="Input.Producer" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="DrugIngredients">Drug ingredients</label>
+                                    <select class="form-control" id="DrugIngredients" name="DrugIngredients" multiple>
+                                        <option selected disabled>-- Choose ingredient --</option>
+                                        @foreach (string option in ViewData["DrugIngredients"] as List<string>)
+                                        {
+                                            <option>@option</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    <label asp-for="Input.Leaflat">Leaflat</label>
+                                    <input size="30" asp-for="Input.Leaflat"  class="form-control" />
+                                    <span asp-validation-for="Input.Leaflat" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="DrugType">Drug type</label>
+                                    <select class="form-control" id="DrugType" name="DrugType">
+                                        <option selected disabled>-- Choose type --</option>
+                                        @foreach (string option in ViewData["DrugTypes"] as List
+                                       <string>
+                                           )
+                                        {
+                                            <option>@option</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="DrugForm">Drug form</label>
+                                    <select class="form-control" id="DrugForm" name="DrugForm">
+                                        <option selected disabled>-- Choose type --</option>
+                                        @foreach (string option in ViewData["DrugForms"] as List
+                                       <string>
+                                           )
+                                        {
+                                            <option>@option</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Dose">One dose is equal to how many units of this drug?</label>
+                                    <input asp-for="Input.Dose" class="form-control" />
+                                    <span asp-validation-for="Input.Dose" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.DosesPerDay">How many doses per day are needed?</label>
+                                    <input asp-for="Input.DosesPerDay" class="form-control" />
+                                    <span asp-validation-for="Input.DosesPerDay" class="text-white"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default text-center">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

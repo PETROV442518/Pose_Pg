@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = !consentFeature?.CanTrack ?? false;
+    var cookieString = consentFeature?.CreateConsentCookie();
+}
+
+@if (showBanner)
+{
+    <div col-md-12>
+        <div class="col-md-12 modal-dialog-centered center-block" style="text-align:center; padding:70px 0;">
+            <div id="cookieConsent" class="alert-danger alert text-center" style="color:coral; background-color:transparent" role="alert">
+                POSE uses harmless cookies for a better work performance!
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:black"> Learn More</a>.
+                <button type="button" class="accept-policy close text-black-50" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+                    <span aria-hidden="true">Accept</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+            button.addEventListener("click", function (event) {
+                document.cookie = button.dataset.cookieString;
+            }, false);
+        })();
+    </script>
+}

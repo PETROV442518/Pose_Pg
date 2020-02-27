@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Doctor Profile";
+}
+@model PROJECT_POSE.Models.Account.DoctorProfileViewModel
+@using Microsoft.AspNetCore.Identity
+@using POSE.Domain
+
+@inject UserManager<PoseUser> UserManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div style="margin-top:100px">
+                <form method="post">
+                        <div class="col-md-4">
+                            <div class="profile-img">
+                                <img src="~/img/doctor-avatar.jpg"; style="height:200px; width:200px" />
+                            </div>
+                        </div>
+                        <!--header-->
+                        <div class="col-md-8">
+                            <div>
+                                <h3 style="color:white">
+                                    Hello, @User.Identity.Name!
+                                </h3>
+                                <p class="text-white">@Model.Address<span class="white"></span></p>
+                            </div>
+                            <div class="col-md-10 text-white">
+                                <div class="col-md-6 btn-appoint text-center">
+                                    <a asp-controller="Doctor" asp-action="ContactPatient" style="margin-left:20px; margin-right:20px; color:white">CONTACT PATIENT</a>
+                                </div>
+                                <div class="col-md-6 btn-appoint text-center">
+                                    <a asp-controller="Doctor" asp-action="CheckPatientHistory" style="margin-left:20px; margin-right:20px; color:white">MEDICAL HISTORY</a>
+                                </div>
+                                <div class="col-md-12 btn-appoint text-center">
+
+                                    <a asp-controller="Examination" asp-action="ChoosePatientAndTests" style="margin-left:20px; margin-right:20px; color:white">START EXAMINATION</a>
+                                </div>
+                            </div>
+                            <!--/header-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--rightmenu-->
+                                <div class="col-md-4">
+                                    <div class="alert-heading">
+                                        <h3 style="color:coral; margin-top:20px" class="text-center">PROFILE</h3>
+                                        <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                        <a class="white" href="/Identity/Account/Manage/ChangePassword">Change Password</a><br />
+                                        <a class="white" href="/Identity/Account/Manage/DeletePersonalData">Delete Profile</a><br />
+                                        <a class="white" href="/Identity/Account/Manage/UpdateDoctorProfile">Update Profile</a>
+                                    </div>
+                                </div>
+                                <!--/rightmenu-->
+                                <div class="col-md-4">
+                                    <div class="row white">
+                                        <h3 style="color:coral; margin-top:20px" class="text-center">PERSONAL INFO</h3>
+                                        <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                        <div class="col-md-4">
+                                            <label>Full name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>@Model.FullName</p>
+                                        </div>
+                                    </div>
+                                    <div class="row white">
+                                        <div class="col-md-4">
+                                            <label>Age</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>@Model.Age years</p>
+                                        </div>
+                                    </div>
+                                    <div class="row white">
+                                        <div class="col-md-4">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>@Model.Email</p>
+                                        </div>
+                                    </div>
+                                    <div class="row white">
+                                        <div class="col-md-4">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>@Model.PhoneNumber</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row white">
+                                        <h3 style="color:coral; margin-top:20px" class="text-center">PROFESIONAL INFO</h3>
+                                        <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                        <div class="row white">
+                                            <div class="col-md-4">
+                                                <label>Specialty</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.Specialty</p>
+                                            </div>
+                                        </div>
+                                        <div class="row white">
+                                            <div class="col-md-4">
+                                                <label>Patients</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.PatientsCount</p>
+                                            </div>
+                                        </div>
+                                        <div class="row white">
+                                            <div class="col-md-4">
+                                                <label>Score</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>@Model.Score/6.00</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+﻿@{
+ViewData["Title"] = "Perform tests";
+Layout = "~/Views/Shared/_Layout.cshtml";
+var tests = ViewBag.Tests as List<string>;
+var patients = ViewBag.Patients as List<PatientDto>;
+}
+
+@model PROJECT_POSE.Models.Examination.PerformTestsBindingModel
+@using POSE.Services.Dtos
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-10">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h2 style="color:white">@ViewData["Title"] </h2>
+                        <form asp-controller="Examination" asp-action="PerformExamination" method="get">
+                            <div asp-validation-summary="All" class="text-white"></div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                @if (patients.Count != 0)
+                                {
+                                <div class="form-group">
+                                    <label asp-for="@Model.Patient">Choose Patient:</label>
+                                    <select class="form-control" id="Patient" size="10" name="Patient">
+                                        <option selected disabled>-- Patients: --</option>
+                                        @foreach (var option in patients)
+                                            {
+                                        <option label="@option.FullName --- @option.Age years">@option.UserGuid</option>
+                                            }
+                                    </select>
+                                </div>
+                                }
+                                else
+                                {
+                                <div class="form-group">
+                                    <label>No patients to show</label>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="form-group">
+                                    @if (tests.Count != 0)
+                                    {
+                                    <label asp-for="@Model.Tests">Select Tests:</label>
+                                    <select class="form-control" id="Tests" size="10" name="Tests" multiple>
+                                        <option selected disabled>-- Tests: --</option>
+                                        @foreach (var option in tests)
+                                            {
+                                        <option >@option</option>
+                                            }
+                                    </select>
+                                    }else
+                                    {
+                                    <label> No prescriptions to show </label>
+                                    }
+                                </div>
+                                <button type="submit" asp-controller="Examination" asp-action="PerformExamination" class="btn btn-appoint">
+                                    Perform Tests
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

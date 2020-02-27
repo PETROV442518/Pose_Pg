@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.Identity
+@using POSE.Domain
+@inject SignInManager<PoseUser> SignInManager
+@inject UserManager<PoseUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.IsInRole("Patient"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Patient" asp-action="PatientProfile">Profile</a>
+        </li>
+    }
+    else if (User.IsInRole("Doctor"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Doctor" asp-action="DoctorProfile">Profile</a>
+        </li>
+    }
+    else if (User.IsInRole("DrugStore"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="DrugStore" asp-action="DrugStoreProfile">Profile</a>
+        </li>
+    }
+    if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Account/AdminProfile">Profile</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+

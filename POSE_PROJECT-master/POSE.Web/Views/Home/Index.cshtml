@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Identity
+@using POSE.Domain
+@using System.Linq
+@using Microsoft.AspNetCore.Http;
+@inject SignInManager<PoseUser> SignInManager
+@inject UserManager<PoseUser> UserManager
+        <!--banner-->
+
+    <section id="banner" class="banner">
+        <div class="bg-color">
+            <div class="container">
+                <div class="banner-info text-center">
+                    <div class="banner-text text-center">
+                        <h1 class="white">Patient oriented system for examinations</h1>
+                        <h2 class="white">Healthcare at your desk!!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!--/ banner-->

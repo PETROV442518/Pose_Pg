@@ -1,0 +1,105 @@
+﻿@page
+@model POSE.Web.Areas.Admin.Pages.Account.AdminProfileModel
+@{
+    ViewData["Title"] = "Admin Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div style="margin-top:100px">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="~/img/admin.png" ; style="height:200px; width:200px" />
+                        </div>
+                    </div>
+                    <!--header-->
+                    <div class="col-md-8">
+                        <div class="col-md-4" style="margin-left:20px">
+                            <h3 style="color:white">
+                                Hello, @User.Identity.Name!
+                            </h3>
+                            <p class="text-white">@Model.Input.Address<span class="white"></span></p>
+                        </div>
+                        <div class="col-md-6" style="margin-left:20px">
+                            <div class="row white">
+                                <p class="text-center" style="color:coral; margin-top:20px;">PERSONAL INFO</p>
+                                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                <div class="col-md-6">
+                                    <label>Full name:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>@Model.Input.FullName</p>
+                                </div>
+                            </div>
+                            <div class="row white">
+                                <div class="col-md-6">
+                                    <label>Email:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>@Model.Input.Email</p>
+                                </div>
+                            </div>
+                            <div class="row white">
+                                <div class="col-md-6">
+                                    <label>Phone:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>@Model.Input.PhoneNumber</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--/header-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--rightmenu-->
+                        <div class="col-md-4">
+                            <div class="alert-heading">
+                                <p class="text-center" style="color:coral; margin-top:20px">PROFILE</p>
+                                <a class="white" href="/Admin/Account/ChangeAdminPassword">Change Password</a><br />
+                                <a class="white" href="/Identity/Account/Manage/DeletePersonalData">Delete Profile</a><br />
+                                <a class="white" asp-area="Admin" asp-page="/Account/UpdateAdminProfile">Update Profile</a>
+                            </div>
+                        </div>
+                        <!--/rightmenu-->
+                        <div class="col-md-7">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <div class="col-md-6 btn-appoint text-center" >
+                                <a asp-area="Admin" asp-page="/Create/CreateDrug" style="margin-left:20px; color:white; margin-right:20px">CREATE DRUG</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center" >
+                                <a asp-area="Admin" asp-page="/Delete/DeleteDrug" style="margin-left:20px; color:white; margin-right:20px">DELETE DRUG</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center">
+                                <a asp-area="Admin" asp-page="/Create/CreateDisease" style="margin-left:20px; color:white; margin-right:20px">CREATE DISEASE</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center" >
+                                <a asp-area="Admin" asp-page="/Delete/DeleteDisease" style="margin-left:20px; color:white; margin-right:20px">DELETE DISEASE</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center" >
+                                <a asp-area="Admin" asp-page="/Create/CreateTest" style="margin-left:20px; color:white; margin-right:20px">CREATE TEST</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center"  >
+                                <a asp-area="Admin" asp-page="/Delete/DeleteTest"  style="margin-left:20px;  color:white; margin-right:20px">DELETE TEST</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center" >
+                                <a asp-area="Admin" asp-page="/Create/CreateDrugIngredient"  style="margin-left:20px; color:white; margin-right:20px">CREATE DRUG INGREDIENT</a>
+                            </div>
+                            <div class="col-md-6 btn-appoint text-center"  >
+                                <a asp-area="Admin" asp-page="/Delete/DeleteDrugIngredient"  style="margin-left:20px; color:white; margin-right:20px">DELETE DRUG INGREDIENT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

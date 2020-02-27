@@ -1,0 +1,35 @@
+﻿@model PROJECT_POSE.Models.Patient.GiveScoreBindingModel
+@{
+    ViewData["Title"] = "Give Your Drug Store Score";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-10">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h3 style="color:white">@ViewData["Title"] </h3>
+                        <div class="col-md-4">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <form asp-controller="Patient" asp-action="GiveDrugStoreScore" method="post">
+                                <h5 style="color:white">Score must be between 2.00 and 6.00 to be accepted!</h5>
+                                <div class="form-group">
+                                    <label asp-for="Score">Score:</label>
+                                    <input asp-for="Score" class="form-control" />
+                                    <span asp-validation-for="Score" class="text-white"></span>
+                                </div>
+                                <div>
+                                    <button type="submit" asp-controller="Patient" asp-action="GiveDrugStoreScore" class="btn btn-default text-center">GIVE SCORE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

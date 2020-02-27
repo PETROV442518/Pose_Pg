@@ -1,0 +1,66 @@
+﻿@model PROJECT_POSE.Models.Messages.SendMessageBindingModel;
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal" asp-append-version="true">
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/bootstrap.min.css")" asp-append-version="true">
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/style.css")" asp-append-version="true">
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/js/custom.js")" asp-append-version="true">
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/js/jquery.min.js")" asp-append-version="true">
+<link rel="shortcut icon" href="~/favicon/favicon.ico" asp-append-version="true" />
+
+<section id="contact" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="ser-title">Contact us</h2>
+                <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <h3>Contact Info</h3>
+                <div class="space"></div>
+                <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>1000 Awesome Street<br> Sofia Bulgaria</p>
+                <div class="space"></div>
+                <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i>info@pose.com</p>
+                <div class="space"></div>
+                <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>0888 123 1234</p>
+            </div>
+            <div class="col-md-8 col-sm-8 marb20">
+                <div class="contact-info">
+                    <h3 class="cnt-ttl">Contact us!</h3>
+                    <div class="space"></div>
+                    <div id="sendmessage">Your message has been sent. Thank you!</div>
+                    <div id="errormessage"></div>
+                    <form action="" method="post" role="form" class="contactForm">
+                        <div asp-validation-summary="All" class="text-white"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Name"></label>
+                            <input asp-for="@Model.Name" class="form-control br-radius-zero" />
+                            <span asp-validation-for="@Model.Name" style="color:coral"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Email"></label>
+                            <input asp-for="@Model.Email" class="form-control br-radius-zero" />
+                            <span asp-validation-for="@Model.Email" style="color:coral"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Subject"></label>
+                            <input asp-for="@Model.Subject" class="form-control br-radius-zero" />
+                            <span asp-validation-for="@Model.Subject" style="color:coral"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Message"></label>
+                            <input asp-for="@Model.Message" class="form-control br-radius-zero" />
+                            <span asp-validation-for="@Model.Message" style="color:coral"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label hidden></label>
+                            <input hidden class="form-control br-radius-zero" />
+                        </div>
+                        <div class="form-action">
+                            <button type="submit" asp-controller="Home" asp-action="SendMessageAsync" class="btn btn-form">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

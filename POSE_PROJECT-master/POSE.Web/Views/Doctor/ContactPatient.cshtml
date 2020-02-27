@@ -1,0 +1,66 @@
+﻿@model PROJECT_POSE.Models.Doctor.ContactPatientBindingModel
+@using POSE.Services.Dtos
+@{
+    ViewData["Title"] = "Contact Doctor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var patients = ViewData["Patients"] as List<PatientDto>;
+}
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="banner-text">
+                <section style="color:white; margin-top:150px">
+                    <div class="col-md-10">
+                        <h3 class="cnt-tt text-center" style="color:white">Contact Patient</h3>
+                        <hr style="height:3px; background:#ffb737; position:relative; border:0; margin:20px 0 20px 0" />
+                        <div class="space"></div>
+                        <form action="" method="post" role="form" class="contactForm">
+                            <div class="col-md-4">
+                                <div asp-validation-summary="All" class="text-white"></div>
+                                @if (ViewData["Patients"] != null)
+                                {
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Patient">Choose Patient:</label>
+                                        <select class="form-control" id="Patient" size="10" name="Patient">
+                                            <option selected disabled>-- Patients: --</option>
+                                            @foreach (var option in patients)
+                                            {
+                                                <option label="@option.FullName --- @option.Age years">@option.UserGuid</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <p>No patients to show!</p>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Subject"></label>
+                                    <input asp-for="@Model.Subject" placeholder="Subject must be at least 3 symbols long" class="form-control br-radius-zero" />
+                                    <span asp-validation-for="@Model.Subject"  style="color:coral"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@Model.Message"></label>
+                                    <textarea asp-for="@Model.Message" rows="5" placeholder="Message must be at least 10 symbols long" class="form-control br-radius-zero"></textarea>
+                                    <span asp-validation-for="@Model.Message" style="color:coral"></span>
+                                </div>
+                                <div class="form-group" hidden>
+                                    <label asp-for="@Model.AntiSpam"></label>
+                                    <input asp-for="@Model.AntiSpam" class="form-control br-radius-zero" />
+                                </div>
+                                <div class="form-action">
+                                    <button type="submit" asp-controller="Doctor" asp-action="ContactPatient" class="btn btn-form">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

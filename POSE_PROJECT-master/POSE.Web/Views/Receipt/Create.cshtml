@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Perform Prescription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var prescriptions = ViewData["Prescriptions"] as List<PrescriptionDto>;
+}
+
+@model PROJECT_POSE.Models.Receipt.CreateReceiptBindingModel
+@using POSE.Services.Dtos
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-10">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+                        <h3 style="color:white">@ViewData["Title"] </h3>
+                        <div class="col-md-8">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <form asp-controller="Receipt" asp-action="ReceiptDetails" method="post">
+                                <div asp-validation-summary="All" class="text-white"></div>
+                                <div class="form-group">
+                                    @if (prescriptions.Count >0)
+                                    {
+                                        <label asp-for="@Model.PrescriptionId">Choose Patient:</label>
+                                        <select  class="form-control" id="PrescriptionId" name="PrescriptionId">
+                                            <option selected disabled>-- Patients: --</option>
+                                            @foreach (var option in prescriptions)
+                                            {
+                                                var drugNames = @String.Join(", ", option.Drugs.Select(a => a.Name).ToList());
+                                                <option label="@option.Patient.FullName --- @drugNames" value="@option.Id">@option.Id</option>
+                                            }
+                                        </select>
+                                        <div>
+                                            <button type="submit" asp-controller="Receipt" asp-action="ReceiptDetails" class="btn btn-default text-center">PERFORM</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <label>No prescriptions to show</label>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

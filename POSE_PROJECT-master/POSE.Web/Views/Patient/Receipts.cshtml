@@ -1,0 +1,138 @@
+﻿@model PROJECT_POSE.Models.Receipt.AllReceiptsViewModel
+
+@using POSE.Services.Dtos
+@{
+    ViewData["Title"] = "Receipts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<style>
+    .collapsible {
+        background-color: transparent;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .activeRow, .collapsible:hover {
+            background-color: #555;
+        }
+
+    .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: transparent;
+        outline: thin;
+    }
+</style>
+
+<section id="banner" class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="banner-text">
+                    <section style="color:white; margin-top:100px">
+
+                        <div class="col-md-6 text-center">
+                            <hr style="height:3px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                            <h3 style="color:coral" class="text-center">Receipts:</h3>
+                            @if (@Model.Receipts.Count > 0)
+                            {
+                                foreach (var receipt in Model.Receipts)
+                                {
+                                    <hr style="height:1px; background:#ffb737; position:relative;border:0; margin:20px 0 20px 0" />
+                                    <button class="collapsible btn-group">Date: @receipt.IssuedOn.ToShortDateString() Fee: @receipt.Fee$</button>
+                                    <div class="container">
+                                        <div class="col-md-4" style="margin-top:10px; margin-bottom:10px; background-color:white">
+                                            <div id="Heading">
+                                                <div class="page-header">
+                                                    <div>
+                                                        <h3 class="text-center">@receipt.DrugStore.FullName</h3>
+                                                    </div>
+                                                    <div>
+                                                        <span style="margin-top:10px; color:black">Address: @receipt.DrugStore.Address</span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="margin-top:10px; color:black">CIN: @receipt.DrugStore.CIN</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table">
+                                                <div id="table">
+                                                    <table class="col-md-12" style="background-color:white">
+                                                        <tr class="tabletitle">
+                                                            <td class="item"><h4>ITEM</h4></td>
+                                                            <td class="Rate"><h4>PRICE</h4></td>
+                                                        </tr>
+                                                        @foreach (var item in receipt.Drugs)
+                                                        {
+                                                            <tr>
+                                                                <td class="col-md-6" style="color:black">@item.Name (@item.Producer)</td>
+                                                                <td class="col-md-6" style="color:black">$@item.Price</td>
+                                                            </tr>
+                                                        }
+                                                        <tr class="tabletitle">
+                                                            <td class="Rate" style="margin-top:10px"><h4>Total:</h4></td>
+                                                            <td class="payment" style="margin-top:10px"><h4>$@receipt.Fee</h4></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div id="goodbye">
+                                                <p class="alert-dark text-center" style="margin-top:10px">
+                                                    <strong class="text-center" style="color:black">Thank you for your business!</strong>
+                                            </div>
+                                            <div>
+                                                <p class="alert-dark text-center" style="margin-top:10px">
+                                                    <strong class="text-center" style="color:black">Created with POSE!</strong>
+                                            </div>
+                                            <div>
+                                                <strong class="text-center" style="color:gray">www.pose.com</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div>
+                                    <label class="text-center">No receipts to show!</label>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("activeRow");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+
+
