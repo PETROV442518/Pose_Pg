@@ -115,7 +115,7 @@
             if (env.IsDevelopment() || env.IsEnvironment("QA"))
             {
                 app.UseDeveloperExceptionPage(new DeveloperExceptionPageOptions() { SourceCodeLineCount = 100 });
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -232,10 +232,10 @@
             app.UseMvcWithDefaultRoute();
             app.UseCookiePolicy();
 
-            app.UseSignalR(
-                 routes =>
+            app.UseEndpoints(
+                 endpoints =>
                  {
-                     routes.MapHub<ChatHub>("/chat");
+                     endpoints.MapHub<ChatHub>("/chat");
                  });
             app.UseMvc(routes =>
             {

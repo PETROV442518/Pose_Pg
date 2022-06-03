@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POSE.Domain", "POSE.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POSE.Services", "POSE.Services\POSE.Services.csproj", "{00E6816F-2AF1-4CE6-B697-9B77B71E657F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSE Tests", "POSE Tests\POSE Tests.csproj", "{7C9E6CBC-EF63-4083-AF8C-F845A902D5EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POSE Tests", "POSE Tests\POSE Tests.csproj", "{7C9E6CBC-EF63-4083-AF8C-F845A902D5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

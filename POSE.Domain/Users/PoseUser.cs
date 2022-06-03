@@ -1,13 +1,12 @@
 ﻿namespace POSE.Domain
-{
-    using Microsoft.AspNetCore.Identity;
+{ 
     using System;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Defines the <see cref="PoseUser" />
     /// </summary>
-    public class PoseUser : IdentityUser
+    public class PoseUser : Microsoft.AspNetCore.Identity.IdentityUser
     {
         /// <summary>
         /// Gets or sets the UserGuid
