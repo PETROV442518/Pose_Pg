@@ -52,6 +52,8 @@
         /// <summary>
         /// Gets or sets the Id
         /// </summary>
+        /// 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
         /// <summary>

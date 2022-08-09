@@ -18,10 +18,11 @@
     "PostgreSQL 12": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5432;http://localhost:5000",
+      "applicationUrl": "http://localhost:5432;http://localhost:44398/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }
 }
+

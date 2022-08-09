@@ -227,23 +227,16 @@
             else
                 app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
-
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
             app.UseCookiePolicy();
-
-            app.UseEndpoints(
-                 endpoints =>
-                 {
-                     endpoints.MapHub<ChatHub>("/chat");
-                 });
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseCors();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
 
         /// <summary>

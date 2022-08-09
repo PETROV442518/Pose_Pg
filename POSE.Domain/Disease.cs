@@ -1,6 +1,7 @@
 ﻿namespace POSE.Domain
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Defines the <see cref="Disease" />
@@ -58,6 +59,8 @@
         /// <summary>
         /// Gets or sets the Id
         /// </summary>
+        /// 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
         /// <summary>
