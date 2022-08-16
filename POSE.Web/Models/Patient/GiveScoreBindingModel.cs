@@ -10,12 +10,12 @@
         /// <summary>
         /// Defines the MinValue
         /// </summary>
-        private const string MinValue = "2.00";
+        private const string MinValue = "2";
 
         /// <summary>
         /// Defines the MaxValue
         /// </summary>
-        private const string MaxValue = "6.00";
+        private const string MaxValue = "6";
 
         /// <summary>
         /// Gets or sets the Score

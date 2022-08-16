@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -119,11 +120,13 @@
 
             if (ModelState.IsValid)
             {
-                var userFtomDb = this._signInManager.UserManager
-                    .Users
-                    .FirstOrDefault(a => a.UserName == Input.Username
-                    && a.IsDeleted == false);
-                if (userFtomDb == null)
+
+                var userFromDB = await this._signInManager.UserManager.FindByNameAsync(Input.Username);
+                //var userFtomDb = this._signInManager.UserManager.Users
+                 //   .FirstOrDefault(a => a.UserName == Input.Username
+                   // && a.IsDeleted == false);
+
+                if (userFromDB == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();

@@ -137,6 +137,50 @@
                         context.Roles.Add(new IdentityRole { Name = "DrugStore", NormalizedName = "DRUGSTORE" });
                         context.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
                     }
+
+                    if (!context.Users.Any())
+                    {
+                        context.Users.Add(new PoseUser
+                        {
+                            Role = UserRole.Doctor,
+                            UserName = "Doctor1",
+                            PhoneNumber = "01234556789",
+                            Email = "doctor1@asd.asd",
+                            Address = "Pirogov, 3 etaj, staq 305",
+                            FullName = "Dr Queen Lechitelkata",
+                            PasswordHash = Sha256("12345")
+                        });
+                        context.Users.Add(new PoseUser
+                        {
+                            Role = UserRole.DrugStore,
+                            UserName = "Pharma1",
+                            PhoneNumber = "01234556789",
+                            Email = "pharma1@asd.asd",
+                            Address = "Pirogov, bolnichna apteka",
+                            FullName = "Bolnichna apteka Pirogov",
+                            PasswordHash = Sha256("12345")
+                        });
+                        context.Users.Add(new PoseUser
+                        {
+                            Role = UserRole.Patient,
+                            UserName = "Patient1",
+                            PhoneNumber = "01234556789",
+                            Email = "patient@asd.asd",
+                            Address = "Sofia, Mladost 3",
+                            FullName = "Ivan Ivanov",
+                            PasswordHash = Sha256("12345")
+                        });
+                        context.Users.Add(new PoseUser
+                        {
+                            Role = UserRole.Admin,
+                            UserName = "admin1",
+                            PhoneNumber = "01234556789",
+                            Email = "admin1@asd.asd",
+                            Address = "Pose Headquarter",
+                            FullName = "Admin",
+                            PasswordHash = Sha256("12345")
+                        });
+                    }
                     if (!context.DrugIngredients.Any())
                     {
                         context.DrugIngredients.Add(new DrugIngredient { Name = "None", Description = "Alergic to nothing" });
@@ -231,6 +275,7 @@
             app.UseCookiePolicy();
             app.UseRouting();
             app.UseCors();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
