@@ -51,7 +51,7 @@
 
                 mimeMessage.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.Sender));
 
-                mimeMessage.To.Add(new MailboxAddress(email));
+                mimeMessage.To.Add(new MailboxAddress(_emailSettings.SenderName,email));
 
                 mimeMessage.Subject = subject;
 
